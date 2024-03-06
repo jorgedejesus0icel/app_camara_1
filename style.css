@@ -120,3 +120,9 @@ video {
     text-decoration: none;
     color: white;
 }
+
+#silueta {
+    display: none;
+    opacity: 0.5;
+    position: absolute;
+}

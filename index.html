@@ -15,8 +15,7 @@
     <main class="row justify-content-center">
     <div id="input-div" class="col-6">
         <h1>Cámara ICEL</h1>
-        <p>Introduce el ID en número del usuario: para alumno ID a 9 dígitos, o para docentes a Num Empleado a 7 dígitos.
-        </br>(Si las cámaras no aparecen en la lista, favor de actualizar la página)</p>
+        <p>(Si las cámaras no aparecen en la lista, favor de actualizar la página)</p>
         <label for="id">Ingresa el id:</label>
         <input type="text" id="filename" selected name="id">
         <button type="button" class="btn btn-primary">
@@ -26,10 +25,15 @@
             <input class="form-check-input" type="checkbox" id="grid-slider">
             <label class="form-check-label" for="grid-slider">Líneas Guía</label>
         </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="silueta-slider">
+            <label class="form-check-label" for="silueta-slider">Silueta</label>
+        </div>
      </div>
     <div class="display-cover">
         <video autoplay></video>
         <canvas class="d-none"></canvas>
+        <img src="silueta 1.png" alt="imagen guía" id="silueta">
 
         <div class="video-options">
             <select name="" id="" class="custom-select">

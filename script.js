@@ -9,6 +9,8 @@ const buttons = [...controls.querySelectorAll('button')]
 const downloadLink = document.getElementById('download-link')
 const cover = document.querySelector('.display-cover')
 const gridSlider = document.getElementById('grid-slider')
+const siluetaSlider = document.getElementById('silueta-slider')
+const silueta = document.getElementById('silueta')
 
 /* Luego hacemos unas variables muy importantes que vamos a requerir */
 let streamStarted = false
@@ -157,7 +159,7 @@ const download = () => {
 pause.onclick = pauseStream
 downloadLink.onclick = download
 
-/* Finalmente hacemos un evento que dibuje una cruz con líneas que srivan como guía visual para tomar fotos con la webcam */
+/* Finalmente hacemos un evento que dibuje una cruz con líneas que sirvan como guía visual para tomar fotos con la webcam */
 function toggleGrid() {
 
   let vertLine = document.createElement('div')
@@ -171,13 +173,20 @@ function toggleGrid() {
 
 }
 
+function toggleSilueta() {
+
+  silueta.style.display = 'block'
+  silueta.style.height = `${video.clientHeight}px`
+
+}
+
 gridSlider.onchange = () => {
 
-  if (gridSlider.checked == true) {
+  if (gridSlider.checked) {
 
     toggleGrid()
 
-  } else if (gridSlider.checked != true) {
+  } else {
 
     let line1 = document.getElementById('vertLine')
     line1.remove()
@@ -186,4 +195,17 @@ gridSlider.onchange = () => {
 
   }
 
+}
+
+siluetaSlider.onchange = () => {
+
+  if (siluetaSlider.checked) {
+
+    toggleSilueta()
+
+  } else {
+
+    silueta.style.display = 'none'
+
+  }
 }
