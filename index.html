@@ -18,6 +18,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
@@ -27,46 +28,48 @@
             margin: 0 auto;
         }
 
+        /* Menú más pequeño (reducido 20%) */
         #input-div {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px; /* Reducido de 25px */
+            border-radius: 12px; /* Reducido de 15px */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más sutil */
+            transform: scale(0.9); /* Reducir todo el menú 10% adicional */
+            transform-origin: top right; /* Escalar desde la esquina superior derecha */
+            margin-right: -5%; /* Compensar el espacio por el escalado */
         }
 
         #input-div h1 {
             color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 15px; /* Reducido de 20px */
+            font-size: clamp(1.3rem, 3.5vw, 1.7rem); /* Reducido */
+            font-weight: 600;
         }
 
         #input-div p {
             color: #666;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
-            margin-bottom: 20px;
+            font-size: clamp(0.75rem, 1.8vw, 0.85rem); /* Reducido */
+            margin-bottom: 15px; /* Reducido de 20px */
+            line-height: 1.4;
         }
 
         #filename {
             width: 100%;
-            padding: 12px;
+            padding: 10px; /* Reducido de 12px */
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        #filename:focus {
-            outline: none;
-            border-color: #3498db;
+            border-radius: 6px; /* Reducido de 8px */
+            font-size: 0.9rem; /* Reducido de 1rem */
+            margin-bottom: 12px; /* Reducido de 15px */
         }
 
         .btn-primary {
             width: 100%;
-            padding: 12px;
+            padding: 10px; /* Reducido de 12px */
             background-color: #3498db;
             border: none;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 6px; /* Reducido de 8px */
+            margin-bottom: 15px; /* Reducido de 20px */
+            font-size: 0.9rem; /* Texto más pequeño */
         }
 
         .btn-primary a {
@@ -77,12 +80,28 @@
         }
 
         .form-check {
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reducido de 10px */
+            font-size: 0.9rem; /* Texto más pequeño */
+        }
+
+        .form-check-input {
+            width: 1.8em; /* Switch más pequeño */
+            height: 0.9em;
+            margin-top: 0.15em;
+        }
+
+        /* Contenedor de la cámara centrado */
+        .col-md-7 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .display-cover {
             position: relative;
             width: 100%;
+            max-width: 900px; /* Limitar ancho máximo */
+            margin: 0 auto; /* Centrar */
             background: #000;
             border-radius: 15px;
             overflow: hidden;
@@ -95,26 +114,31 @@
             height: 100%;
             object-fit: cover;
             background: #000;
+            display: block;
         }
 
+        /* Silueta ajustada al 100% del cuadro de cámara */
         #silueta {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 80%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 'contain' para mantener proporciones sin cortar */
             opacity: 0.4;
             pointer-events: none;
             display: none;
             z-index: 10;
+            background: transparent;
         }
 
         .grid-line {
             position: absolute;
-            background-color: #74FF00;
-            opacity: 0.5;
+            background-color: #00ff88; /* Verde más brillante */
+            opacity: 0.6;
             z-index: 20;
             pointer-events: none;
+            box-shadow: 0 0 5px rgba(0,255,136,0.3); /* Brillo sutil */
         }
 
         #vertLine {
@@ -137,39 +161,46 @@
             right: 10px;
             z-index: 30;
             background: rgba(0,0,0,0.7);
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 6px 10px; /* Reducido de 8px 12px */
+            border-radius: 6px; /* Reducido de 8px */
+            backdrop-filter: blur(5px);
         }
 
         .custom-select {
             background: white;
             border: 1px solid #ddd;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 4px 8px; /* Reducido de 5px 10px */
+            border-radius: 4px; /* Reducido de 5px */
             cursor: pointer;
-            min-width: 180px;
+            min-width: 160px; /* Reducido de 180px */
+            font-size: 0.85rem; /* Texto más pequeño */
         }
 
         .controls {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px; /* Reducido de 20px */
             left: 50%;
             transform: translateX(-50%);
             z-index: 30;
             display: flex;
-            gap: 10px;
+            gap: 8px; /* Reducido de 10px */
         }
 
         .controls button {
-            width: 45px;
-            height: 45px;
+            width: 40px; /* Reducido de 45px */
+            height: 40px; /* Reducido de 45px */
             border-radius: 50%;
             border: none;
-            font-size: 20px;
+            font-size: 18px; /* Reducido de 20px */
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .controls button:hover {
+            transform: scale(1.1);
         }
 
         .btn-danger { background: #dc3545; color: white; }
@@ -178,18 +209,49 @@
 
         .d-none { display: none !important; }
 
+        /* Ajustes para tablets */
+        @media (max-width: 992px) {
+            #input-div {
+                transform: scale(0.85); /* Más pequeño en tablets */
+                margin-right: -7%;
+            }
+        }
+
+        /* Ajustes para móviles */
         @media (max-width: 768px) {
             body { padding: 10px; }
-            main { flex-direction: column; }
-            .custom-select { min-width: 140px; }
+            
+            #input-div {
+                transform: scale(0.8); /* Aún más pequeño en móviles */
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .custom-select { 
+                min-width: 140px; 
+                font-size: 0.8rem;
+            }
+            
+            .controls button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+        }
+
+        /* Ajustes para pantallas muy grandes */
+        @media (min-width: 1400px) {
+            .display-cover {
+                max-width: 1000px;
+            }
         }
     </style>
 </head>
 <body>
-    <main class="row justify-content-center g-4">
+    <main class="row justify-content-center g-4 align-items-center">
         <div id="input-div" class="col-12 col-md-5 col-lg-4">
             <h1>Cámara ICEL</h1>
-            <p>Introduce el ID del usuario: 9 dígitos para alumno, 7 dígitos para docente.</p>
+            <p>Introduce el ID del usuario: 9 dígitos para alumno,<br>7 dígitos para docente.</p>
             
             <label for="filename">Ingresa el ID:</label>
             <input type="text" id="filename" class="form-control" placeholder="Ej: 123456789">
@@ -213,7 +275,7 @@
             <div class="display-cover">
                 <video id="video" autoplay playsinline></video>
                 <canvas id="canvas" style="display: none;"></canvas>
-                <img src="silueta 1.png" alt="Silueta guía" id="silueta" style="display: none;">
+                <img src="silueta 1.png" alt="Silueta guía" id="silueta">
                 
                 <div class="video-options">
                     <select id="cameraSelect" class="custom-select">
@@ -248,19 +310,15 @@
 
         // Función para ajustar overlays
         function adjustOverlays() {
-            const videoRect = video.getBoundingClientRect();
+            // Ya no necesitamos ajustar el tamaño de la silueta porque ahora es 100%
             
             if (gridSlider.checked) {
                 const vertLine = document.getElementById('vertLine');
                 const horizLine = document.getElementById('horizLine');
                 if (vertLine && horizLine) {
-                    vertLine.style.height = videoRect.height + 'px';
-                    horizLine.style.width = videoRect.width + 'px';
+                    vertLine.style.height = video.clientHeight + 'px';
+                    horizLine.style.width = video.clientWidth + 'px';
                 }
-            }
-            
-            if (siluetaSlider.checked && silueta) {
-                silueta.style.height = (videoRect.height * 0.8) + 'px';
             }
         }
 
@@ -296,7 +354,10 @@
                 }
 
                 const constraints = {
-                    video: deviceId ? { deviceId: { exact: deviceId } } : true,
+                    video: deviceId ? { deviceId: { exact: deviceId } } : {
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 }
+                    },
                     audio: false
                 };
 
@@ -401,9 +462,6 @@
         // Silueta
         siluetaSlider.onchange = () => {
             silueta.style.display = siluetaSlider.checked ? 'block' : 'none';
-            if (siluetaSlider.checked) {
-                adjustOverlays();
-            }
         };
 
         // Ajustar al redimensionar
@@ -415,7 +473,9 @@
         const observer = new ResizeObserver(() => {
             adjustOverlays();
         });
-        observer.observe(video);
+        if (video) {
+            observer.observe(video);
+        }
 
         // Inicializar
         getCameras();
@@ -427,12 +487,11 @@
             }
         });
 
-        // Solicitar permisos automáticamente (opcional)
+        // Solicitar permisos automáticamente
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
-                // Solo para permisos, luego detenemos
                 stream.getTracks().forEach(track => track.stop());
-                getCameras(); // Ahora sí obtenemos las cámaras con nombres
+                getCameras();
             })
             .catch(err => console.log('Permiso denegado o error:', err));
     </script>
