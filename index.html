@@ -24,52 +24,52 @@
 
         main {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1300px; /* Reducido para mejor proporción */
             margin: 0 auto;
         }
 
-        /* Menú más pequeño (reducido 20%) */
+        /* Menú más pequeño SIN usar transform scale */
         #input-div {
             background: white;
-            padding: 20px; /* Reducido de 25px */
-            border-radius: 12px; /* Reducido de 15px */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más sutil */
-            transform: scale(0.9); /* Reducir todo el menú 10% adicional */
-            transform-origin: top right; /* Escalar desde la esquina superior derecha */
-            margin-right: -5%; /* Compensar el espacio por el escalado */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px; /* Ancho fijo para el menú */
+            margin-left: auto; /* Empujar hacia la derecha */
         }
 
         #input-div h1 {
             color: #2c3e50;
-            margin-bottom: 15px; /* Reducido de 20px */
-            font-size: clamp(1.3rem, 3.5vw, 1.7rem); /* Reducido */
+            margin-bottom: 15px;
+            font-size: 1.5rem; /* Tamaño fijo */
             font-weight: 600;
         }
 
         #input-div p {
             color: #666;
-            font-size: clamp(0.75rem, 1.8vw, 0.85rem); /* Reducido */
-            margin-bottom: 15px; /* Reducido de 20px */
+            font-size: 0.8rem;
+            margin-bottom: 15px;
             line-height: 1.4;
         }
 
         #filename {
             width: 100%;
-            padding: 10px; /* Reducido de 12px */
+            padding: 8px; /* Más compacto */
             border: 2px solid #e0e0e0;
-            border-radius: 6px; /* Reducido de 8px */
-            font-size: 0.9rem; /* Reducido de 1rem */
-            margin-bottom: 12px; /* Reducido de 15px */
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
         }
 
         .btn-primary {
             width: 100%;
-            padding: 10px; /* Reducido de 12px */
+            padding: 8px; /* Más compacto */
             background-color: #3498db;
             border: none;
-            border-radius: 6px; /* Reducido de 8px */
-            margin-bottom: 15px; /* Reducido de 20px */
-            font-size: 0.9rem; /* Texto más pequeño */
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
         }
 
         .btn-primary a {
@@ -80,28 +80,35 @@
         }
 
         .form-check {
-            margin-bottom: 8px; /* Reducido de 10px */
-            font-size: 0.9rem; /* Texto más pequeño */
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            padding-left: 2rem; /* Ajustar para el switch */
         }
 
         .form-check-input {
-            width: 1.8em; /* Switch más pequeño */
-            height: 0.9em;
-            margin-top: 0.15em;
+            width: 2em;
+            height: 1em;
+            margin-left: -2rem; /* Ajustar posición */
+            margin-top: 0.2em;
         }
 
-        /* Contenedor de la cámara centrado */
+        .form-check-label {
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        /* Contenedor de la cámara - centrado y sin encimar */
         .col-md-7 {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Alinear a la izquierda */
             align-items: center;
+            padding-left: 20px; /* Espacio entre menú y cámara */
         }
 
         .display-cover {
             position: relative;
             width: 100%;
-            max-width: 900px; /* Limitar ancho máximo */
-            margin: 0 auto; /* Centrar */
+            max-width: 800px; /* Ancho máximo para la cámara */
             background: #000;
             border-radius: 15px;
             overflow: hidden;
@@ -117,28 +124,27 @@
             display: block;
         }
 
-        /* Silueta ajustada al 100% del cuadro de cámara */
+        /* Silueta ajustada al 100% */
         #silueta {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* 'contain' para mantener proporciones sin cortar */
+            object-fit: contain;
             opacity: 0.4;
             pointer-events: none;
             display: none;
             z-index: 10;
-            background: transparent;
         }
 
         .grid-line {
             position: absolute;
-            background-color: #00ff88; /* Verde más brillante */
+            background-color: #00ff88;
             opacity: 0.6;
             z-index: 20;
             pointer-events: none;
-            box-shadow: 0 0 5px rgba(0,255,136,0.3); /* Brillo sutil */
+            box-shadow: 0 0 5px rgba(0,255,136,0.3);
         }
 
         #vertLine {
@@ -161,37 +167,37 @@
             right: 10px;
             z-index: 30;
             background: rgba(0,0,0,0.7);
-            padding: 6px 10px; /* Reducido de 8px 12px */
-            border-radius: 6px; /* Reducido de 8px */
+            padding: 6px 10px;
+            border-radius: 6px;
             backdrop-filter: blur(5px);
         }
 
         .custom-select {
             background: white;
             border: 1px solid #ddd;
-            padding: 4px 8px; /* Reducido de 5px 10px */
-            border-radius: 4px; /* Reducido de 5px */
+            padding: 4px 8px;
+            border-radius: 4px;
             cursor: pointer;
-            min-width: 160px; /* Reducido de 180px */
-            font-size: 0.85rem; /* Texto más pequeño */
+            min-width: 160px;
+            font-size: 0.8rem;
         }
 
         .controls {
             position: absolute;
-            bottom: 15px; /* Reducido de 20px */
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 30;
             display: flex;
-            gap: 8px; /* Reducido de 10px */
+            gap: 8px;
         }
 
         .controls button {
-            width: 40px; /* Reducido de 45px */
-            height: 40px; /* Reducido de 45px */
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: none;
-            font-size: 18px; /* Reducido de 20px */
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -205,15 +211,20 @@
 
         .btn-danger { background: #dc3545; color: white; }
         .btn-info { background: #0dcaf0; color: black; }
-        .btn-success { background: #198754; color: white; }
 
         .d-none { display: none !important; }
 
         /* Ajustes para tablets */
         @media (max-width: 992px) {
+            .col-md-7 {
+                justify-content: center;
+                padding-left: 0;
+                margin-top: 20px;
+            }
+            
             #input-div {
-                transform: scale(0.85); /* Más pequeño en tablets */
-                margin-right: -7%;
+                max-width: 400px;
+                margin: 0 auto;
             }
         }
 
@@ -222,14 +233,12 @@
             body { padding: 10px; }
             
             #input-div {
-                transform: scale(0.8); /* Aún más pequeño en móviles */
-                margin-right: 0;
-                margin-bottom: 10px;
+                max-width: 100%;
+                margin-bottom: 15px;
             }
             
             .custom-select { 
                 min-width: 140px; 
-                font-size: 0.8rem;
             }
             
             .controls button {
@@ -238,39 +247,36 @@
                 font-size: 16px;
             }
         }
-
-        /* Ajustes para pantallas muy grandes */
-        @media (min-width: 1400px) {
-            .display-cover {
-                max-width: 1000px;
-            }
-        }
     </style>
 </head>
 <body>
-    <main class="row justify-content-center g-4 align-items-center">
-        <div id="input-div" class="col-12 col-md-5 col-lg-4">
-            <h1>Cámara ICEL</h1>
-            <p>Introduce el ID del usuario: 9 dígitos para alumno,<br>7 dígitos para docente.</p>
-            
-            <label for="filename">Ingresa el ID:</label>
-            <input type="text" id="filename" class="form-control" placeholder="Ej: 123456789">
-            
-            <button type="button" class="btn btn-primary">
-                <a download id="download-link">Tomar foto</a>
-            </button>
-            
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="grid-slider">
-                <label class="form-check-label" for="grid-slider">Líneas Guía</label>
-            </div>
-            
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="silueta-slider">
-                <label class="form-check-label" for="silueta-slider">Silueta</label>
+    <main class="row justify-content-center g-0 align-items-center">
+        <!-- Columna del menú -->
+        <div class="col-12 col-md-5 col-lg-4 d-flex justify-content-end">
+            <div id="input-div">
+                <h1>Cámara ICEL</h1>
+                <p>Introduce el ID del usuario: 9 dígitos para alumno,<br>7 dígitos para docente.</p>
+                
+                <label for="filename">Ingresa el ID:</label>
+                <input type="text" id="filename" class="form-control" placeholder="Ej: 123456789">
+                
+                <button type="button" class="btn btn-primary">
+                    <a download id="download-link">Tomar foto</a>
+                </button>
+                
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="grid-slider">
+                    <label class="form-check-label" for="grid-slider">Líneas Guía</label>
+                </div>
+                
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="silueta-slider">
+                    <label class="form-check-label" for="silueta-slider">Silueta</label>
+                </div>
             </div>
         </div>
         
+        <!-- Columna de la cámara -->
         <div class="col-12 col-md-7 col-lg-8">
             <div class="display-cover">
                 <video id="video" autoplay playsinline></video>
@@ -310,8 +316,6 @@
 
         // Función para ajustar overlays
         function adjustOverlays() {
-            // Ya no necesitamos ajustar el tamaño de la silueta porque ahora es 100%
-            
             if (gridSlider.checked) {
                 const vertLine = document.getElementById('vertLine');
                 const horizLine = document.getElementById('horizLine');
@@ -369,7 +373,6 @@
                 playBtn.classList.add('d-none');
                 pauseBtn.classList.remove('d-none');
 
-                // Esperar a que el video cargue
                 video.onloadedmetadata = () => {
                     video.play();
                     adjustOverlays();
@@ -424,12 +427,10 @@
                 return;
             }
 
-            // Capturar la imagen
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Descargar
             const link = document.createElement('a');
             link.download = prefix + fileName + '.png';
             link.href = canvas.toDataURL('image/png');
