@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Toma de Fotografía Alumno y Docente</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #input-div {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #input-div h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        #input-div p {
+            color: #666;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            margin-bottom: 20px;
+        }
+
+        #filename {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        #filename:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+        }
+
+        .form-check {
+            margin-bottom: 10px;
+        }
+
+        .display-cover {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            aspect-ratio: 16/9;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        #silueta {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 80%;
+            opacity: 0.4;
+            pointer-events: none;
+            display: none;
+            z-index: 10;
+        }
+
+        .grid-line {
+            position: absolute;
+            background-color: #74FF00;
+            opacity: 0.5;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        #vertLine {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #horizLine {
+            height: 2px;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .video-options {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 30;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .custom-select {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            min-width: 180px;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            display: flex;
+            gap: 10px;
+        }
+
+        .controls button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-info { background: #0dcaf0; color: black; }
+        .btn-success { background: #198754; color: white; }
+
+        .d-none { display: none !important; }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            main { flex-direction: column; }
+            .custom-select { min-width: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="row justify-content-center g-4">
+        <div id="input-div" class="col-12 col-md-5 col-lg-4">
+            <h1>Cámara ICEL</h1>
+            <p>Introduce el ID del usuario: 9 dígitos para alumno, 7 dígitos para docente.</p>
+            
+            <label for="filename">Ingresa el ID:</label>
+            <input type="text" id="filename" class="form-control" placeholder="Ej: 123456789">
+            
+            <button type="button" class="btn btn-primary">
+                <a download id="download-link">Tomar foto</a>
+            </button>
+            
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="grid-slider">
+                <label class="form-check-label" for="grid-slider">Líneas Guía</label>
+            </div>
+            
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="silueta-slider">
+                <label class="form-check-label" for="silueta-slider">Silueta</label>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-7 col-lg-8">
+            <div class="display-cover">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <img src="silueta 1.png" alt="Silueta guía" id="silueta" style="display: none;">
+                
+                <div class="video-options">
+                    <select id="cameraSelect" class="custom-select">
+                        <option value="">Cargando cámaras...</option>
+                    </select>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn btn-danger" id="playBtn" title="Iniciar cámara">▶</button>
+                    <button class="btn btn-info d-none" id="pauseBtn" title="Pausar">⏸</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Elementos del DOM
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const cameraSelect = document.getElementById('cameraSelect');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const downloadLink = document.getElementById('download-link');
+        const cover = document.querySelector('.display-cover');
+        const gridSlider = document.getElementById('grid-slider');
+        const siluetaSlider = document.getElementById('silueta-slider');
+        const silueta = document.getElementById('silueta');
+        const filenameInput = document.getElementById('filename');
+
+        let currentStream = null;
+        let isPlaying = false;
+
+        // Función para ajustar overlays
+        function adjustOverlays() {
+            const videoRect = video.getBoundingClientRect();
+            
+            if (gridSlider.checked) {
+                const vertLine = document.getElementById('vertLine');
+                const horizLine = document.getElementById('horizLine');
+                if (vertLine && horizLine) {
+                    vertLine.style.height = videoRect.height + 'px';
+                    horizLine.style.width = videoRect.width + 'px';
+                }
+            }
+            
+            if (siluetaSlider.checked && silueta) {
+                silueta.style.height = (videoRect.height * 0.8) + 'px';
+            }
+        }
+
+        // Obtener lista de cámaras
+        async function getCameras() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                
+                if (videoDevices.length === 0) {
+                    cameraSelect.innerHTML = '<option value="">No hay cámaras</option>';
+                    return;
+                }
+
+                let options = '<option value="">Selecciona cámara</option>';
+                videoDevices.forEach((device, index) => {
+                    const label = device.label || `Cámara ${index + 1}`;
+                    options += `<option value="${device.deviceId}">${label}</option>`;
+                });
+                
+                cameraSelect.innerHTML = options;
+            } catch (err) {
+                console.error('Error al obtener cámaras:', err);
+                cameraSelect.innerHTML = '<option value="">Error al cargar</option>';
+            }
+        }
+
+        // Iniciar cámara
+        async function startCamera(deviceId = null) {
+            try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+
+                const constraints = {
+                    video: deviceId ? { deviceId: { exact: deviceId } } : true,
+                    audio: false
+                };
+
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                currentStream = stream;
+                isPlaying = true;
+
+                playBtn.classList.add('d-none');
+                pauseBtn.classList.remove('d-none');
+
+                // Esperar a que el video cargue
+                video.onloadedmetadata = () => {
+                    video.play();
+                    adjustOverlays();
+                };
+
+            } catch (err) {
+                console.error('Error al iniciar cámara:', err);
+                alert('No se pudo acceder a la cámara. Verifica los permisos.');
+            }
+        }
+
+        // Evento del botón play
+        playBtn.onclick = async () => {
+            await startCamera();
+        };
+
+        // Evento del botón pausa
+        pauseBtn.onclick = () => {
+            if (currentStream) {
+                video.pause();
+                isPlaying = false;
+                playBtn.classList.remove('d-none');
+                pauseBtn.classList.add('d-none');
+            }
+        };
+
+        // Cambiar cámara
+        cameraSelect.onchange = () => {
+            if (cameraSelect.value) {
+                startCamera(cameraSelect.value);
+            }
+        };
+
+        // Capturar foto
+        downloadLink.onclick = (e) => {
+            e.preventDefault();
+
+            if (!isPlaying || !video.srcObject) {
+                alert('Primero inicia la cámara');
+                return;
+            }
+
+            const fileName = filenameInput.value.trim();
+            let prefix = '';
+
+            if (fileName.length === 9) {
+                prefix = 'P';
+            } else if (fileName.length === 7) {
+                prefix = 'D';
+            } else {
+                alert('ID inválido (9 dígitos para alumno, 7 para docente)');
+                return;
+            }
+
+            // Capturar la imagen
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Descargar
+            const link = document.createElement('a');
+            link.download = prefix + fileName + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        };
+
+        // Líneas guía
+        gridSlider.onchange = () => {
+            if (gridSlider.checked) {
+                if (!document.getElementById('vertLine')) {
+                    const vertLine = document.createElement('div');
+                    const horizLine = document.createElement('div');
+                    
+                    vertLine.id = 'vertLine';
+                    horizLine.id = 'horizLine';
+                    vertLine.className = 'grid-line';
+                    horizLine.className = 'grid-line';
+                    
+                    cover.appendChild(vertLine);
+                    cover.appendChild(horizLine);
+                    
+                    adjustOverlays();
+                }
+            } else {
+                document.getElementById('vertLine')?.remove();
+                document.getElementById('horizLine')?.remove();
+            }
+        };
+
+        // Silueta
+        siluetaSlider.onchange = () => {
+            silueta.style.display = siluetaSlider.checked ? 'block' : 'none';
+            if (siluetaSlider.checked) {
+                adjustOverlays();
+            }
+        };
+
+        // Ajustar al redimensionar
+        window.addEventListener('resize', () => {
+            adjustOverlays();
+        });
+
+        // Observar cambios en el video
+        const observer = new ResizeObserver(() => {
+            adjustOverlays();
+        });
+        observer.observe(video);
+
+        // Inicializar
+        getCameras();
+
+        // Limpiar al cerrar
+        window.addEventListener('beforeunload', () => {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Solicitar permisos automáticamente (opcional)
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                // Solo para permisos, luego detenemos
+                stream.getTracks().forEach(track => track.stop());
+                getCameras(); // Ahora sí obtenemos las cámaras con nombres
+            })
+            .catch(err => console.log('Permiso denegado o error:', err));
+    </script>
+</body>
+</html>
